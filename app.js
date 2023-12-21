@@ -1,14 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const userRouter = require("./api/users/user.router");
 
-app.get("/api", (req, res) => {
-  res.json({
-    success: 1,
-    message: "The REST API is working.",
-  })
-})
+app.use(express.json());
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server up and running on PORT ${process.env.PORT}.`);
-})
+app.use("/api/users", userRouter);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log("server up and running on PORT :", port);
+});
